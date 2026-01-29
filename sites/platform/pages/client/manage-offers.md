@@ -4,7 +4,7 @@ Create and manage employment contract offers.
 
 ## Route
 
-`/manage-offers`
+`/organisations/:organisationId/manage-eorinstances`
 
 ## Features
 

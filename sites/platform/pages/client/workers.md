@@ -4,7 +4,7 @@ View and manage employees across your organisation.
 
 ## Route
 
-`/workers`
+`/organisations/:organisationId/workers`
 
 ## Features
 

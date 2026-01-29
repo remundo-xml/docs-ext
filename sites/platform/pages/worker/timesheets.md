@@ -4,7 +4,7 @@ Submit and approve employee timesheets.
 
 ## Route
 
-`/timesheets`
+`/time-sheet`
 
 ## Features
 
