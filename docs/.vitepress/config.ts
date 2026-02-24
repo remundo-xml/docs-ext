@@ -10,7 +10,7 @@ export default defineConfig({
   themeConfig: {
     sidebar: generateSidebar(docsRoot),
     editLink: {
-      pattern: "/md/:path",
+      pattern: (params) => `/md/${params.filePath}`,
       text: "See `.md`",
     },
     search: {
