@@ -9,6 +9,10 @@ export default defineConfig({
   description: "Remundo platform documentation",
   themeConfig: {
     sidebar: generateSidebar(docsRoot),
+    editLink: {
+      pattern: "/md/:path",
+      text: "Raw markdown",
+    },
     search: {
       provider: "local",
     },
