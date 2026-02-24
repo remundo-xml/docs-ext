@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-DIST="sites/platform/pages/.vitepress/dist"
+DIST="docs/.vitepress/dist"
 
 cat > "$DIST/llms.txt" <<'HEADER'
 # Remundo Platform Documentation
@@ -9,4 +9,4 @@ cat > "$DIST/llms.txt" <<'HEADER'
 Raw markdown files are available at /md/{path}, e.g. /md/sites/platform/pages/client/dashboard.md
 
 HEADER
-tree -I '.vitepress|index.md' --noreport sites/platform/pages >> "$DIST/llms.txt"
+tree -I '.vitepress|index.md' --noreport docs >> "$DIST/llms.txt"
