@@ -1,0 +1,12 @@
+{
+  "name": "remundo-docs-ext",
+  "private": true,
+  "scripts": {
+    "dev": "vitepress dev sites/platform/pages",
+    "build": "vitepress build sites/platform/pages",
+    "preview": "vitepress preview sites/platform/pages"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.3"
+  }
+}
