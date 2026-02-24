@@ -5,6 +5,7 @@ import { generateSidebar } from "./sidebar";
 const docsRoot = path.resolve(__dirname, "..");
 
 export default defineConfig({
+  base: "/docs-ext/",
   title: "Remundo Docs",
   description: "Remundo platform documentation",
   themeConfig: {
