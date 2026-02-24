@@ -11,7 +11,7 @@ export default defineConfig({
     sidebar: generateSidebar(docsRoot),
     editLink: {
       pattern: "/md/:path",
-      text: "Raw markdown",
+      text: "See `.md`",
     },
     search: {
       provider: "local",
