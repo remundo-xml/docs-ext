@@ -1,6 +1,3 @@
----
-layout: home
-hero:
-  name: Remundo Docs
-  tagline: Platform documentation
----
+# Remundo Docs
+
+Platform documentation.
