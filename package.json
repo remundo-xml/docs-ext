@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vitepress dev docs",
-    "build": "vitepress build docs && cp -r docs docs/.vitepress/dist/md && bash scripts/generate-llms-txt.sh",
+    "build": "vitepress build docs && rsync -a --exclude='.vitepress' docs/ docs/.vitepress/dist/md/ && bash scripts/generate-llms-txt.sh",
     "preview": "vitepress preview docs"
   },
   "devDependencies": {
