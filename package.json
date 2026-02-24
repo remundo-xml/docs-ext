@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vitepress dev sites/platform/pages",
-    "build": "vitepress build sites/platform/pages && mkdir -p sites/platform/pages/.vitepress/dist/md && cp -r sites/platform/pages/client sites/platform/pages/worker sites/platform/pages/common sites/platform/pages/.vitepress/dist/md/ && bash scripts/generate-llms-txt.sh",
+    "build": "vitepress build sites/platform/pages && mkdir -p sites/platform/pages/.vitepress/dist/md/sites/platform/pages && cp -r sites/platform/pages/client sites/platform/pages/worker sites/platform/pages/common sites/platform/pages/.vitepress/dist/md/sites/platform/pages/ && bash scripts/generate-llms-txt.sh",
     "preview": "vitepress preview sites/platform/pages"
   },
   "devDependencies": {
