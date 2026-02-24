@@ -24,7 +24,7 @@ function readHeading(filePath: string): string | null {
   }
 }
 
-function buildSidebar(dir: string, urlPrefix: string): SidebarItem[] {
+function buildSidebar(dir: string, urlPrefix: string, depth: number): SidebarItem[] {
   const entries = fs.readdirSync(dir, { withFileTypes: true }).sort((a, b) =>
     a.name.localeCompare(b.name)
   );
@@ -36,7 +36,7 @@ function buildSidebar(dir: string, urlPrefix: string): SidebarItem[] {
 
     if (entry.isDirectory()) {
       const subDir = path.join(dir, entry.name);
-      const children = buildSidebar(subDir, `${urlPrefix}/${entry.name}`);
+      const children = buildSidebar(subDir, `${urlPrefix}/${entry.name}`, depth + 1);
       if (children.length === 0) continue;
 
       const indexFile = path.join(subDir, "index.md");
@@ -45,7 +45,7 @@ function buildSidebar(dir: string, urlPrefix: string): SidebarItem[] {
       items.push({
         text,
         link: fs.existsSync(indexFile) ? `${urlPrefix}/${entry.name}/` : undefined,
-        collapsed: true,
+        collapsed: depth >= 3,
         items: children,
       });
     } else if (entry.name.endsWith(".md") && entry.name !== "index.md") {
@@ -74,7 +74,7 @@ export function generateSidebar(docsRoot: string): SidebarItem[] {
     if (!entry.isDirectory() || entry.name.startsWith(".")) continue;
 
     const dir = path.join(docsRoot, entry.name);
-    const children = buildSidebar(dir, `/${entry.name}`);
+    const children = buildSidebar(dir, `/${entry.name}`, 1);
     if (children.length === 0) continue;
 
     sidebar.push({
