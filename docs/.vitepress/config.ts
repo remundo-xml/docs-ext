@@ -10,7 +10,7 @@ export default defineConfig({
   themeConfig: {
     sidebar: generateSidebar(docsRoot),
     editLink: {
-      pattern: ({ filePath }) => `/md/${filePath.replace(/\.html$/, ".md")}`,
+      pattern: "https://dev.docs.remundo.com/md/:path",
       text: "See `.md`",
     },
     search: {
