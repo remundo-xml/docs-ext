@@ -1,7 +1,6 @@
 import { defineConfig } from "vitepress";
 
 export default defineConfig({
-  base: "/docs-ext/",
   title: "Remundo Docs",
   description: "Remundo platform documentation",
   themeConfig: {
