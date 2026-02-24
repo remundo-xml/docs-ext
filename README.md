@@ -1,30 +1,22 @@
 # Remundo External Documentation
 
-Public documentation for the Remundo platform.
+Public documentation for the Remundo platform, published at [dev.docs.remundo.com](https://dev.docs.remundo.com).
 
 ## Structure
 
+All documentation lives under `docs/`. Any markdown added there is automatically included in the site.
+
 ```
-docs-ext/
-└── sites/
-    ├── admin/          # Admin site documentation
-    ├── platform/       # Main platform documentation
-    │   └── pages/
-    │       ├── client/   # Client/employer view pages
-    │       ├── worker/   # Worker/candidate view pages
-    │       └── common/   # Shared pages (auth, errors, etc.)
-    └── tenant/         # Tenant-specific documentation
+docs/
+├── sites/
+│   ├── platform/       # Main platform documentation
+│   │   └── pages/
+│   │       ├── client/   # Client/employer view pages
+│   │       ├── worker/   # Worker/candidate view pages
+│   │       └── common/   # Shared pages (auth, errors, etc.)
+│   └── tenant/         # Tenant-specific documentation
+└── support/            # Support documentation
 ```
-
-## Page Types
-
-Pages are organised by view type:
-
-- `client` - Pages for organisation administrators and employers
-- `worker` - Pages for employees and contractors
-- `common` - Pages shared across all user types (authentication, errors, settings)
-
-View type is optional. Pages that don't fit a specific view type should go in `common/`.
 
 ## Page Format
 
@@ -43,5 +35,17 @@ Brief description of the page purpose.
 
 - Feature one
 - Feature two
-- Sub-route at `/path/to/sub-route`
 ```
+
+## Development
+
+```bash
+npm install
+npm run dev
+```
+
+## Raw Markdown
+
+Raw `.md` files are served alongside the HTML site at `/md/{path}`, e.g. `/md/sites/platform/pages/client/dashboard.md`.
+
+An index of all pages is available at [`/llms.txt`](https://dev.docs.remundo.com/llms.txt).
