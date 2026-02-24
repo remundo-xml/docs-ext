@@ -69,6 +69,10 @@ WebSocket connection via `WorkerDetailsToken` PubSub channel. On `worker-updated
 
 ## Behavior notes
 
-- When the worker's contract has ended (`isContractEnded`), the entire card is greyed out and form fields are non-interactive.
+- When the worker's contract has ended (`isContractEnded`), the entire card is greyed out (grayscale filter), and form fields have pointer events disabled.
 - The form is scrollable with a max height of 30rem.
+- The details column has a fixed width of 35em; at screen widths below 1050px it expands to 100%.
+- The right column (work permit card) has a maximum width of 35em.
 - On initialisation error, an error event is dispatched to the parent tab container.
+- The pencil icon edit button is disabled while already in edit mode.
+- The Job Location `changeJobLocation` command receives an `isContractor` flag so the backend uses the correct endpoint for each worker type.

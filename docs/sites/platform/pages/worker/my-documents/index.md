@@ -14,24 +14,24 @@ Access employment and onboarding documents across all engagements.
 
 ## Version routing
 
-A version router checks the `useNewCandidateDocs` feature flag and renders either the V1 or V2 document list. The documentation below covers V2.
+A version router (`VersionRouter`) checks the `useNewCandidateDocs` feature flag and renders either the V1 or V2 document list. The documentation below covers V2.
 
 ## Engagement selection
 
-A dropdown at the top allows the candidate to select which engagement's documents to view. Each option shows "Job Title - Entity Name" with an active badge for current engagements. An "All Organizations" option switches to the `?view=all-engagements` mode and shows documents from every engagement.
+A dropdown (`EngagementPicker`) at the top allows the candidate to select which engagement's documents to view. Each option shows "Job Title - Entity Name" with an active badge for current engagements. An "All Organizations" option (using `ALL_ENGAGEMENTS_ID`) is available when `allowAllOption` is set, which switches to the all-engagements mode and shows documents from every engagement. The picker only allows switching when there are more than one engagement.
 
-Switching engagement clears the current search terms and reloads the document list.
+The previously selected engagement is persisted in the `selectedEngagement` store. Switching engagement clears the current documents and reloads via `getCandidateMinimalDocuments`.
 
 ## Search and filtering
 
-A multi-query search bar filters documents. Multiple terms can be separated by commas (stored in the URL as `?queries=term1,term2`). Search matches against:
+A multi-query search bar (`SearchFilter`) filters documents. Multiple terms can be separated by commas (stored in the URL as `?queries=term1,term2`). Search matches against:
 
 - Document display name
 - Organisation name
 - Job title
 - File name
 
-Results are sorted alphabetically by document name.
+All query terms must match (AND logic via `every`). Results are sorted alphabetically by document name using `localeCompare`. The search filter is disabled (pointer events off, 50% opacity) until an engagement is selected.
 
 ## Document types
 
@@ -53,7 +53,7 @@ Documents uploaded during the onboarding process. Some have signing requirements
 
 ### Onboarding tasks
 
-Active onboarding requirements for the "Worker First Day" phase. Displayed with a light blue background to distinguish them from completed documents.
+Active onboarding requirements for the "Worker First Day" phase. Displayed with a light blue background (`bg-light-blue` class) to distinguish them from completed documents.
 
 ### Insurance policy
 
@@ -61,12 +61,21 @@ Insurance templates based on the medical insurance level (Basic, Standard, or Pr
 
 ## Document card
 
-Each document card shows:
+Each document card (`DocumentCard`) is rendered as a `SmallCard` in a flexible grid layout (350px min width, 400px max, 280px height). Each card shows:
 
-- Document name
-- Job title (only visible in the all-engagements view)
-- Organisation name
-- Date uploaded (or "Insurance Date" for insurance policies)
-- File name (clickable link; insurance policies may have multiple file buttons)
-- Uploaded by (hidden for services agreements, insurance policies, and onboarding tasks)
-- Date verified (hidden for services agreements, insurance policies, and onboarding tasks)
+- **Document name** (display name)
+- **Job title**
+- **Organisation name**
+- **Date uploaded** (or "Insurance Date" for insurance policies, formatted with `formatDateRemundoStandard`)
+- **File name** (clickable link with paperclip icon; clicking navigates to preview)
+- **Uploaded by**
+- **Date verified** (formatted when available)
+
+Clicking the file name dispatches a `fileNameClicked` event that navigates to the preview route with the document type, ID, and engagement context as query parameters.
+
+## Navigation to preview
+
+When a file name is clicked, the app navigates to `/my-documents/preview/:docType/:docId` with query parameters:
+- `eor-instance` -- the engagement ID
+- `idx=0` -- added for insurance policies to support multi-file navigation
+- Current filter view and search queries are preserved in the URL

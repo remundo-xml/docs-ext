@@ -33,7 +33,7 @@ A radio group offering two assignment modes:
 
 ### Managing Settings
 
-Three expandable accordion sections for Timesheets, Expenses, and Absences. Each section contains:
+Three expandable accordion sections for Timesheets, Expenses, and Absences. Each section is collapsed by default and toggled by clicking the header row, which displays a category icon, title, subtitle, and a chevron indicator. Each section contains:
 
 #### Submission Status
 

@@ -41,3 +41,10 @@ Approvals are fetched for `RequestType.Illness` only, scoped to the worker's EOR
 
 - Grid/list toggle state is persisted in the `workersAbsenceListViewSelected` store.
 - Reuses the `WorkerAnnualLeaveTableRow` component for list view row rendering (shared with annual leave).
+- The Request column shows the absence/request type via the `ApprovalRequestTypeTag` component.
+- Each table row includes a checkbox for batch selection.
+- Clicking a row navigates to the approval detail view for that item.
+- The Requested and Used columns show the number of days (`requestedDays` and `usedDays`).
+- The Calendar column renders an inline `CalendarDisplayPopup` showing the date range.
+- The Note column shows a chat icon coloured yellow if a note exists, grey otherwise.
+- Responsive: at widths below 1200px, the Used, Date Submitted, Calendar, and Note columns are hidden. At widths below 450px, the Approvals column is also hidden.

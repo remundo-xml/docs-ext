@@ -6,6 +6,10 @@ Submit and manage payment account information with country-specific field requir
 
 `/candidate-details/bank-details`
 
+## Availability
+
+This tab is only enabled when the `useBankDetails` tenant setting is active and the worker has at least one signed engagement. The tab renders at `activeTab={2}` within `CandidateDetailsTabs`.
+
 ## Blueprint selection
 
 The form fields shown depend on the worker's contract type and country:
@@ -13,6 +17,8 @@ The form fields shown depend on the worker's contract type and country:
 - Contractors use a universal bank template (`contractors-bank`) where all country-specific fields are optional
 - Employees use a country-specific bank blueprint fetched by the bank country (defaulting to the existing bank details country or the candidate's country of residence)
 - Changing the bank country reloads the blueprint and resets the form fields (except for contractors using the universal template)
+
+The contract type is determined by fetching the last shared EOR instance for the user via `getLastSharedCandidateEorByUserId`.
 
 ## Form fields
 
@@ -25,7 +31,7 @@ The form fields shown depend on the worker's contract type and country:
 - City/region (optional; 1-100 chars)
 - Post/zip code (optional; 1-20 chars)
 - Account number (required; 1-34 chars)
-- Additional comments (optional; 1-1000 chars; textarea)
+- Additional comments (optional; 1-1000 chars; textarea, max 1000 characters)
 - File attachment (required; image or PDF upload via drop zone)
 
 ### Country-specific fields
@@ -49,7 +55,7 @@ These fields appear when the bank blueprint includes them or when the user alrea
 - A supporting document (bank statement, void cheque, etc.) is required for submission
 - Accepted file types: images (`image/*`) and PDF (`.pdf`)
 - HEIC files are converted to JPEG automatically
-- Uploading a new file generates a UUID-based file ID
+- Uploading a new file generates a UUID-based file ID (`.jpeg` or `.pdf` extension based on content type)
 - Existing attachments can be previewed (opens `FilePreviewPopUp`) or deleted in edit mode
 - If any bank details field changes during editing, a new file must be attached
 
@@ -65,8 +71,13 @@ These fields appear when the bank blueprint includes them or when the user alrea
 
 ## Edit and cancel
 
-- Cancel reverts the form to the last saved state by re-fetching data from the API
+- Cancel reverts the form to the last saved state by re-fetching all data from the API (profile, bank details, and blueprint)
 - The edit icon is disabled while already in edit mode
+- The form content area is scrollable (60vh height) for long country-specific field lists
+
+## Validation behavior
+
+For contractors using the universal template, any field with a validation error blocks submission. For employees, only mandatory fields (those present in the blueprint or with existing values) block submission. Validation errors are shown inline only while in edit mode.
 
 ## Status states
 

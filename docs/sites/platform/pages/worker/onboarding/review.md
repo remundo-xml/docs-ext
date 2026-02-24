@@ -12,11 +12,12 @@ The review page displays a single onboarding document via the `JoiningDocumentPr
 
 ## Data loading
 
-1. The engagement (EOR instance) is fetched by the candidate's email and the `eorId` route parameter
-2. Active onboarding requirements are loaded for the engagement
-3. Candidate documents already submitted for the engagement are loaded
-4. Previously reviewed documents (tracked in the `reviewedDocuments` store) are merged into the candidate documents list as accepted entries
+1. The engagement (EOR instance) is fetched by the candidate's email and the `eorId` route parameter via `getCandidateEorInstanceByEmailAndId`
+2. Active onboarding requirements are loaded for the engagement via `getActiveOnboardingDocuments`
+3. Candidate documents already submitted for the engagement are loaded via `getCandidateDocumentsByEorId`
+4. Previously reviewed documents (tracked in the `reviewedDocuments` store) are merged into the candidate documents list as accepted entries -- this ensures review-only documents that were viewed appear as accepted locally
 5. The specific requirement and its matching candidate document are identified by `documentId`
+6. Documents are sorted by `submittedAt` date for display ordering
 
 ## Document display
 
@@ -27,18 +28,23 @@ The `JoiningDocumentPreview` component renders the document content and provides
 
 ## Review tracking
 
-- When the document is first viewed, a `viewed-document` event fires (once only)
+- When the document is first viewed, a `viewed-document` event fires (once only, via the `|once` modifier)
 - This triggers `submitCandidateDocumentReviewed` which marks the document as reviewed without requiring explicit confirmation
-- The document ID is added to the `reviewedDocuments` store for local tracking
+- The document ID is added to the `reviewedDocuments` store for local tracking (in the format `{eorId}:{requirementId}`)
 
 If the document's action type is `Review` and no explicit confirmation is needed, the review submission happens silently. If confirmation is required, `submitCandidateDocumentReviewedAndPoll` is called instead, which polls until the candidate document appears in the API response.
+
+Review submission is skipped when:
+- The document status is already `Accepted`
+- The action type is not `Review`
+- A candidate document already exists with `Accepted` status
 
 ## Action button visibility
 
 Action buttons (upload, accept) are hidden when:
 - The document status is `Accepted`
 - The document status is `InProgress`
-- The engagement contract has ended
+- The engagement contract has ended (and status is at or beyond `CandidateSigned`)
 - The document action type is `Review` (review-only documents have no further action after viewing)
 
 ## File upload

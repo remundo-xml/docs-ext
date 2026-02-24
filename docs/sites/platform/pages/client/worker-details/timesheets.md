@@ -39,3 +39,7 @@ Approvals are fetched for `RequestType.Timesheet` only, scoped to the worker's E
 
 - Grid/list toggle state is persisted in the `workersTimesheetListViewSelected` store.
 - Uses the `WorkerTimesheetTableRow` component for list view row rendering.
+- Each table row includes a checkbox for batch selection.
+- Clicking a row navigates to `/organisations/:orgId/workers/:id/approvals/:approvalId`.
+- The Note column shows a chat icon coloured yellow if a note exists, grey otherwise. Hovering displays the note text in a tooltip.
+- Responsive: at widths below 1200px, the Date Submitted, Calendar, and Note columns are hidden. At widths below 450px, the Approvals column is also hidden.

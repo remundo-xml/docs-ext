@@ -6,29 +6,33 @@ Five-step wizard for creating a new contractor engagement offer. Structurally pa
 
 `/organisations/:organisationId/create-eorinstance/contractor`
 
+## Progress Line Steps
+
+The step labels in the progress line are: **Contractor**, **Location**, **Role**, **Schedule**, **Rate**.
+
 ## Steps
 
-### Step 1: Contractor Details
+### Step 1: Contractor (Contractor Details)
 
-Collects the contractor's personal information. Includes an `AddTeamForm` component for optionally assigning the contractor to a team at creation time. Team form fields:
+Collects the contractor's personal information using the shared `CandidateDetails` component. Includes an `AddTeamForm` component for optionally assigning the contractor to a team at creation time. Team form fields:
 - Team Name (required)
 - Manager Name (required; combobox of available managers)
 
-### Step 2: Job Location
+### Step 2: Location (Job Location)
 
-`JobLocation` component. Country and region selection. On completion, fetches job constraints for the selected country/region and sets the default currency.
+Contractor-specific `JobLocation` component. Country and region selection. On completion, fetches job constraints for the selected country/region and sets the default currency.
 
-### Step 3: Job Description
+### Step 3: Role (Job Description)
 
-`JobDetailsForm` component. Fields:
+Contractor-specific `JobDetailsForm` component. Fields:
 - Job Title (required; max 50 characters; combobox with custom value allowed; populated from `fetchedJobDescriptions`)
 - Role Description (Markdown editor; required; minimum 3 characters)
   - Option to write a custom description or select a preset description (stepper to cycle through available presets)
   - Preset descriptions are loaded from `fetchedJobDescriptions` matching the selected title
 
-### Step 4: Work Schedule
+### Step 4: Schedule (Work Schedule)
 
-`WorkSchedule` component. Working hours, days per week, and schedule type configuration. The schedule type (e.g. On Demand) affects available time units in the next step.
+Contractor-specific `WorkSchedule` component. Working hours, days per week, and schedule type configuration. The schedule type (e.g. On Demand) affects available time units in the next step.
 
 ### Step 5: Start Date, Pay Rate & Agreement Period
 
@@ -63,7 +67,13 @@ Collects the contractor's personal information. Includes an `AddTeamForm` compon
 
 ## Submission Process
 
-Same eight-step process as the employee wizard. On success, redirects to `/organisations/:organisationId/contract-quote/:eorId`.
+Same eight-step process as the employee wizard, with the following differences:
+
+- Job constraints are fetched via `getContractorJobConstraintsByCountryAndOrganisationId` (contractor-specific endpoint).
+- Regional standards use `submitContractorRegionalStandards` with the minimum initial period calculated from `getMinimumInitialPeriod`.
+- Pricing uses `submitContractorPricingRequest` and `submitContractorPriceCondition`.
+- Regional holidays are submitted with a holiday count of `0` and a contractor flag.
+- On success, redirects to `/organisations/:organisationId/contractor-quote/:eorId` (not `contract-quote`).
 
 ## Wizard State Persistence
 

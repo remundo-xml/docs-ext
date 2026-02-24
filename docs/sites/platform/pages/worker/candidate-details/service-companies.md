@@ -12,9 +12,9 @@ Manage contractor service companies and their signatories.
 
 ## Company list
 
-The list page displays all service companies for the current candidate as a grid of cards (3 per row). If the candidate has exactly one company, the page automatically redirects to that company's detail view.
+The list page renders at `activeTab={4}` within `CandidateDetailsTabs`. It displays all service companies for the current candidate as a grid of cards (3 per row, using `col-4`). If the candidate has exactly one company, the page automatically redirects to that company's detail view.
 
-An "Add" button navigates to `/create-service-company-wizard?redirectUrl=/candidate-details/service-companies` to create a new company.
+An **Add** button navigates to `/create-service-company-wizard?redirectUrl=/candidate-details/service-companies` to create a new company.
 
 When no companies exist, a "no companies" message is displayed.
 

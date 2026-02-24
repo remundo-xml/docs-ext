@@ -20,3 +20,9 @@ Two radio cards:
 - **Contractor** -- navigates to `.../create-eorinstance/contractor`. Disabled when `tenantLicense.contractorsEnabled` is false.
 
 A footer note links to `/organisations/:organisationId/company-settings` for completing company details if needed.
+
+## Behavior notes
+
+- The page title and card labels are translated via the `create-engagement.` translation path.
+- A tooltip with help text is present in the page header but is currently hidden (`d-none`).
+- The engagement type cards are vertically stacked and centred on the page.

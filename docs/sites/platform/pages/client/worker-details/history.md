@@ -41,7 +41,10 @@ Events are fetched via `getWorkerHistory` and include:
 - `ExpensesNotRequired` -- Expenses marked as not required
 - `AbsencesNotRequired` -- Absences marked as not required
 
-Each event displays a type-specific icon and a translated description. Events with associated documents (timesheets, absences, expenses) include a hyperlink to the corresponding pending approval detail view.
+Each event displays a type-specific icon and a translated description. Events with associated documents include a hyperlink to the pending approval detail view at `/organisations/:orgId/pending-approvals/:id`:
+- **Timesheet** events link using `{correlationId}:{weekAndYear}` as the ID
+- **Absence** events link using `{absenceId}`
+- **Expense** events link using `{expenseId}`
 
 ## Behavior notes
 

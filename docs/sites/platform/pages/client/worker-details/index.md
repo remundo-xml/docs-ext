@@ -26,12 +26,12 @@ CompanyAdmin, CompanyOwner, TeamAdmin, TenantAdmin
 
 Tabs are displayed horizontally. Each tab can be conditionally disabled based on feature flags, tenant licenses, and worker-level settings.
 
-| # | Tab | Icon | Condition |
-|---|-----|------|-----------|
+| # | Tab name | Icon | Condition |
+|---|---------|------|-----------|
 | 1 | Details | `bi-person` | Always enabled |
-| 2 | Timeline History | `ri-workers-history` | `showWorkerHistory` feature flag |
-| 3 | General Settings | `ri-worker-general-settings` | Any of: `showLineManagerAssignment`, `showTimesheetWorkerSettings`, `useMultiLevelApprovers` |
-| 4 | Emergency Contact | Custom `EmergencyContact` icon | `useEmergencyContacts` feature flag |
+| 2 | Timeline History | `ri-workers-history` | Always enabled |
+| 3 | General Settings | `ri-worker-general-settings` | Always enabled |
+| 4 | Emergency Contact | Custom `EmergencyContact` icon | `useEmergencyContacts` setting |
 | 5 | Documents | `bi-file-earmark-text` | Always disabled |
 | 6 | Payment History | `bi-wallet2` | Always disabled |
 | 7 | Timesheets | `ri-timesheet` | `workerSubmissionSettings.timesheetsEnabled` |
@@ -43,9 +43,11 @@ Tabs are displayed horizontally. Each tab can be conditionally disabled based on
 
 ## Navigation
 
-- A close button (X) in the top-right navigates back to `/organisations/:orgId/workers`.
+- A close button (X) in the top-right corner navigates back to `/organisations/:orgId/workers`.
 - If an invalid or disabled tab route is provided, the user is redirected to the default `details` tab (preserving query string).
 - Tab components are loaded dynamically via `svelte:component`.
+- While a tab is loading, a `DelayedSpinner` is displayed with the message "Preparing {tab name}...". The tab content is hidden until the component dispatches a `loaded` event.
+- If a tab component dispatches an `error` event, a notification is shown with the error message (or a generic "try again later" message if none is provided).
 
 ## Initialisation
 

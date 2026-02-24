@@ -28,12 +28,12 @@ A title and description, followed by the action-specific modification component.
 
 #### Duration / Start Date
 
-`ModifyStartDate` -- allows changing the start date. Dispatches `InitiateStartDateChangeCommand` with the new date and amendment ID.
+`ModifyStartDate` -- allows changing the start date. Dispatches `InitiateStartDateChangeCommand` with the new date, amendment ID, correlation ID (EOR instance ID), and tenant ID. The command is sent to an endpoint that varies by worker type (employee or contractor).
 
 #### Pay Revision
 
-- **Contractor**: `ModifyContractorPayRate` -- allows changing the pay rate (amount, currency, time unit). Dispatches `InitiatePayRevisionContractorCommand`.
-- **Employee**: `ModifyAnnualSalary` -- allows changing the annual salary. Dispatches `InitiatePayRevisionEmployeeCommand`.
+- **Contractor**: `ModifyContractorPayRate` -- allows changing the pay rate (amount, currency, time unit). Dispatches `InitiatePayRevisionContractorCommand` with `PayRate`, `Currency`, and `TimeUnit`.
+- **Employee**: `ModifyAnnualSalary` -- allows changing the annual salary. Dispatches `InitiatePayRevisionEmployeeCommand` with `Salary`.
 
 #### Allowances (Contractor only)
 
@@ -41,11 +41,20 @@ A title and description, followed by the action-specific modification component.
 
 #### Termination
 
-`ModifyTerminationDate` -- allows setting an early termination date. Dispatches `InitiateEarlyTermination` command.
+`ModifyTerminationDate` -- allows setting an early termination date. Dispatches `InitiateEarlyTermination` command with the termination date, amendment ID, correlation ID, and tenant ID. The command is sent to an endpoint that varies by worker type.
 
 ### Changes on Contract Section
 
-`ChangesOnContract` component displays the amendment history and allows setting the effective date.
+`ChangesOnContract` component displays the current amendment status and allows setting the effective date. It includes:
+
+- **Amendment status** -- shows "Draft" with a coloured label when the amendment is in Draft status.
+- **Effective Date** -- a date picker for setting when the amendment takes effect.
+- **Change indicators** -- tick icons are shown for each change present on the amendment:
+  - Start Date change (when `amendment.startDate` is set)
+  - End Date change (when `amendment.endDate` is set)
+  - Pay Revision (when `amendment.payRate` or `amendment.annualSalary` is set)
+  - Allowances (when `amendment.allowances` is set)
+- **Additional Modification dropdown** -- a dropdown button listing all available modification actions (extension, duration/start date, pay revision, allowances, termination). Selecting an action navigates to the corresponding `:action` route via `redirectByActionSelected`.
 
 ### Action Buttons
 

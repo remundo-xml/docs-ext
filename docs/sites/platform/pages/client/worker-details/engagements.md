@@ -38,6 +38,7 @@ On initialisation:
 
 ## Behavior notes
 
-- The worker type (Employee vs Contractor) determines the agreement type label and the main terms link path.
-- When the contract has ended, the timeline is displayed with reduced opacity.
-- On error, a red error message is displayed inline.
+- The worker type (Employee vs Contractor) determines the agreement type label and the main terms link path (`/contract-quote/:id` for employees, `/contractor-quote/:id` for contractors).
+- When the contract has ended, the profile card is greyed out and the timeline is rendered with `isContractEnded` set, which displays it with reduced opacity.
+- The work order timestamp comes from the `applies` date, and the status label is translated using the `candidateEor.widget.status.{EorStatus}` key with the agreement type inserted.
+- On error, a red error message is displayed inline (e.g. "Error loading EOR details: {message}").

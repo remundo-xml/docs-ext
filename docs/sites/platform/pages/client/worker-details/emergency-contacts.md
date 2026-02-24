@@ -44,6 +44,8 @@ On initialisation:
 
 ## Behavior notes
 
-- The contacts list is vertically scrollable; the outer container is horizontally scrollable.
+- The outer container has a height of 90vh and enables horizontal scrolling. The contacts list within it is vertically scrollable.
 - Contact cards have a fixed width of 30rem.
+- The card header has a light blue-grey background with rounded top corners; the body has a matching border with rounded bottom corners.
+- The profile card on this tab does not display the HR-only badge (unlike other tabs).
 - On initialisation error, an error event is dispatched to the parent tab container.

@@ -30,6 +30,8 @@ When the user navigates to a year that has not yet been loaded, `loadYearData` i
 
 ## Behavior notes
 
-- The calendar container has horizontal scrolling enabled.
-- If worker data cannot be loaded, an alert warning is displayed: "Unable to load calendar data for this worker."
+- The calendar container has horizontal scrolling enabled and 2rem left padding.
+- The `WorkerCalendar` component is rendered with `showHeader` set to `true`, displaying the city and country above the calendar grid.
+- If worker data or EOR instance cannot be loaded, an alert warning is displayed: "Unable to load calendar data for this worker."
 - The effective country ISO code is `jobLocationRegion` when available, otherwise `jobLocation`.
+- The country display name is resolved via `isoToCountryName`; if resolution fails, the raw ISO code is shown. If no `jobLocation` is available, "Unknown Country" is shown.
